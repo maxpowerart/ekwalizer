@@ -66,7 +66,7 @@ ekwalizer updates itself from GitHub releases, the same model as the other Kwa a
 
 ## Releasing
 
-1. Once: create the release key with `tools/build-release.ps1 -NewKeystore` (stored in `.local/android-signing`, git-ignored — keep a backup, without it installed copies can't be updated). Add repository secrets `EKW_KEYSTORE_BASE64` (base64 of `ekwalizer-release.jks`) and `EKW_KEYSTORE_PASSWORD`.
+1. Once: create the release key with `tools/build-release.ps1 -NewKeystore` (stored in `.local/android-signing`, git-ignored — keep a backup, without it installed copies can't be updated). Add repository secrets `EKW_KEYSTORE_BASE64` (base64 of `ekwalizer-release.jks`) and `EKW_KEYSTORE_PASSWORD` with `tools/set-github-secrets.ps1` (uses `gh` if installed, otherwise walks you through the GitHub page via the clipboard; values are never printed).
 2. Bump `appVersion` in `app/build.gradle` (versionCode is derived from it) and add a `## X.Y.Z` section to `CHANGELOG.md`.
 3. Push tag `vX.Y.Z`. [`release.yml`](.github/workflows/release.yml) builds the signed APK and publishes it with `update.json` and `SHA256SUMS.txt`. A tag with `-` (e.g. `v1.1.0-beta.1`) becomes a pre-release and is not offered as an update.
 4. Bad release? Run [`withdraw.yml`](.github/workflows/withdraw.yml) with the version and a reason: the channel goes back to the newest good release. `restore` undoes it.
