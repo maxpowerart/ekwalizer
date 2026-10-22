@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Empty ring: unselected option -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="28dp"
+    android:height="28dp"
+    android:viewportWidth="28"
+    android:viewportHeight="28">
+    <path
+        android:pathData="M1,14a13,13 0 1,0 26,0a13,13 0 1,0 -26,0Z"
+        android:strokeColor="@color/idle_bar"
+        android:strokeWidth="2" />
+</vector>

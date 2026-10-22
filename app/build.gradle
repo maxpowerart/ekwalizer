@@ -1,0 +1,67 @@
+plugins {
+    id 'com.android.application'
+}
+
+// Release key from .local/android-signing (tools/build-release.ps1 -NewKeystore), git-ignored,
+// same layout as KwanimeGo. Without it the release APK is built unsigned.
+// Single version source: tag vX.Y.Z must match. versionCode is derived so every release is an
+// upgrade for Android (it refuses a lower versionCode).
+def appVersion = '1.0.0'
+def (vMajor, vMinor, vPatch) = appVersion.tokenize('.-')[0..2].collect { it as int }
+
+def keystorePropsFile = rootProject.file('.local/android-signing/key.properties')
+def keystoreProps = new Properties()
+if (keystorePropsFile.exists()) {
+    keystorePropsFile.withInputStream { keystoreProps.load(it) }
+}
+
+android {
+    namespace = 'com.ekwalizer.nightmode'
+    compileSdk = 36
+
+    defaultConfig {
+        applicationId = 'com.ekwalizer.nightmode'
+        minSdk = 28
+        targetSdk = 35
+        versionCode = vMajor * 10000 + vMinor * 100 + vPatch
+        versionName = appVersion
+    }
+
+    buildFeatures {
+        buildConfig = true
+    }
+
+    signingConfigs {
+        release {
+            if (keystorePropsFile.exists()) {
+                storeFile = file(keystoreProps['storeFile'])
+                storePassword = keystoreProps['storePassword']
+                keyAlias = keystoreProps['keyAlias']
+                keyPassword = keystoreProps['keyPassword']
+            }
+        }
+    }
+
+    buildTypes {
+        debug {
+            // Development builds have no update channel (as in GitKwaken); test with the
+            // hidden update_url pref instead.
+            buildConfigField 'String', 'UPDATE_CHANNEL', '""'
+        }
+        release {
+            buildConfigField 'String', 'UPDATE_CHANNEL',
+                    '"https://github.com/maxpowerart/ekwalizer/releases/latest/download/update.json"'
+            minifyEnabled = true
+            shrinkResources = true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt')
+            if (keystorePropsFile.exists()) {
+                signingConfig = signingConfigs.release
+            }
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+}

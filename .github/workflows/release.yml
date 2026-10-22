@@ -1,0 +1,80 @@
+name: Release
+
+# Push a tag vX.Y.Z (matching appVersion in app/build.gradle) to build the signed APK and publish
+# a GitHub release with update.json — the channel ekwalizer checks.
+#
+# Repository secrets (the key from .local/android-signing, see README "Releasing"):
+#   EKW_KEYSTORE_BASE64   base64 of ekwalizer-release.jks
+#   EKW_KEYSTORE_PASSWORD its store/key password (alias "ekwalizer")
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Existing tag to (re)build, e.g. v1.0.1'
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  android:
+    runs-on: windows-latest
+    env:
+      TAG: ${{ github.event.inputs.tag || github.ref_name }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.TAG }}
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Check tag matches app version
+        shell: pwsh
+        run: |
+          $ver = (Select-String -Path app/build.gradle -Pattern "def appVersion = '([^']+)'").Matches[0].Groups[1].Value
+          if ("v$ver" -ne $env:TAG) { throw "tag $env:TAG does not match appVersion $ver in app/build.gradle" }
+          "VERSION=$ver" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+
+      - name: Release key
+        shell: pwsh
+        env:
+          KEYSTORE_BASE64: ${{ secrets.EKW_KEYSTORE_BASE64 }}
+          KEYSTORE_PASSWORD: ${{ secrets.EKW_KEYSTORE_PASSWORD }}
+        run: |
+          if (-not $env:KEYSTORE_BASE64) { throw 'EKW_KEYSTORE_BASE64 secret is not set: updates must be signed with the release key' }
+          $dir = New-Item -ItemType Directory -Force .local/android-signing
+          $store = Join-Path $dir 'ekwalizer-release.jks'
+          [IO.File]::WriteAllBytes($store, [Convert]::FromBase64String($env:KEYSTORE_BASE64))
+          Set-Content -Encoding ascii (Join-Path $dir 'key.properties') @(
+            "storeFile=$($store -replace '\\', '/')", "storePassword=$env:KEYSTORE_PASSWORD",
+            'keyAlias=ekwalizer', "keyPassword=$env:KEYSTORE_PASSWORD")
+
+      - name: Build APK, update.json, SHA256SUMS.txt
+        shell: pwsh
+        run: ./tools/build-release.ps1
+
+      - name: Release notes
+        shell: pwsh
+        run: |
+          $notes = (Get-Content dist/update.json -Raw -Encoding utf8 | ConvertFrom-Json).notes
+          $file = Join-Path $env:RUNNER_TEMP 'notes.md'
+          [IO.File]::WriteAllText($file, $notes + "`n", (New-Object Text.UTF8Encoding $false))
+          "NOTES_FILE=$file" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+          Get-Content dist/update.json
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ env.TAG }}
+          name: ekwalizer ${{ env.VERSION }}
+          prerelease: ${{ contains(env.TAG, '-') }}
+          body_path: ${{ env.NOTES_FILE }}
+          files: |
+            dist/ekwalizer-${{ env.VERSION }}.apk
+            dist/update.json
+            dist/SHA256SUMS.txt

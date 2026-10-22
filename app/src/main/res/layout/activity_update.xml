@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/window"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/header"
+        layout="@layout/layout_header" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:orientation="horizontal"
+        android:paddingStart="42dp"
+        android:paddingTop="22dp"
+        android:paddingEnd="42dp"
+        android:paddingBottom="14dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/update_caps"
+                style="@style/SectionCaps" />
+
+            <TextView
+                android:id="@+id/update_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:textColor="@color/text_strong"
+                android:textSize="27sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/update_meta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textColor="@color/muted"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/update_notes_caps"
+                style="@style/SectionCaps"
+                android:layout_marginTop="18dp"
+                android:text="@string/update_notes_caps" />
+
+            <!-- Focusable so the remote can scroll long release notes -->
+            <ScrollView
+                android:id="@+id/update_notes_scroll"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/panel"
+                android:focusable="true"
+                android:padding="14dp">
+
+                <TextView
+                    android:id="@+id/update_notes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:lineSpacingMultiplier="1.25"
+                    android:textColor="@color/text"
+                    android:textSize="14sp" />
+            </ScrollView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="300dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="30dp"
+            android:clipChildren="false"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/update_install"
+                style="@style/DialogButton"
+                android:text="@string/update_button" />
+
+            <TextView
+                android:id="@+id/update_later"
+                style="@style/DialogButton"
+                android:layout_marginTop="10dp"
+                android:text="@string/update_later" />
+
+            <TextView
+                android:id="@+id/update_skip"
+                style="@style/DialogButton"
+                android:layout_marginTop="10dp"
+                android:text="@string/update_skip" />
+
+            <TextView
+                android:id="@+id/update_progress_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                android:textColor="@color/text"
+                android:textSize="13sp" />
+
+            <ProgressBar
+                android:id="@+id/update_progress"
+                style="@android:style/Widget.Material.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:max="1000"
+                android:progressBackgroundTint="@color/line"
+                android:progressTint="@color/icon" />
+
+            <TextView
+                android:id="@+id/update_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:lineSpacingMultiplier="1.2"
+                android:textSize="13sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="42dp"
+        android:paddingEnd="42dp"
+        android:paddingBottom="18dp">
+
+        <TextView style="@style/Keycap" android:text="@string/key_ok" />
+        <TextView style="@style/KeyHint" android:text="@string/hint_select" />
+        <TextView style="@style/Keycap" android:text="@string/key_back" />
+        <TextView style="@style/KeyHint" android:text="@string/hint_back_settings" />
+    </LinearLayout>
+</LinearLayout>

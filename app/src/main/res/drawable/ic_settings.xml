@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Sliders, teal 2dp line icon with an orange node (Kwak icon rule) -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:pathData="M4,7h10M18,7h2M4,17h4M12,17h8"
+        android:strokeColor="@color/icon"
+        android:strokeWidth="2"
+        android:strokeLineCap="round" />
+    <path
+        android:pathData="M8,17a2,2 0 1,0 4,0a2,2 0 1,0 -4,0Z"
+        android:strokeColor="@color/icon"
+        android:strokeWidth="2" />
+    <path
+        android:fillColor="@color/node"
+        android:pathData="M13.5,7a2.5,2.5 0 1,0 5,0a2.5,2.5 0 1,0 -5,0Z" />
+</vector>

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="70 40 400 420" width="400" height="420" role="img" aria-label="ekwalizer">
+  <!-- Mark without background. Sleepy Kwa frog holding a screen: ghost bars = jumpy loudness, aqua bars = leveled. -->
+  <path fill="#2EC4B6" transform="translate(-10 0)" d="M162 282C122 272 92 300 94 338C96 372 120 398 152 418C150 384 152 330 166 300Z"/>
+  <path fill="#2EC4B6" transform="translate(10 0)" d="M350 282C390 272 420 300 418 338C416 372 392 398 360 418C362 384 360 330 346 300Z"/>
+  <path fill="#2EC4B6" d="M134 266C134 186 188 150 256 150C324 150 378 186 378 266Z"/>
+  <circle cx="190" cy="144" r="54" fill="#2EC4B6"/>
+  <circle cx="322" cy="144" r="54" fill="#2EC4B6"/>
+  <path d="M166 146Q190 168 214 146" fill="none" stroke="#0F2240" stroke-width="12" stroke-linecap="round"/>
+  <path d="M298 146Q322 168 346 146" fill="none" stroke="#0F2240" stroke-width="12" stroke-linecap="round"/>
+  <path d="M232 206Q256 222 280 206" fill="none" stroke="#0F2240" stroke-width="12" stroke-linecap="round"/>
+  <rect x="136" y="240" width="240" height="200" rx="40" fill="#0F2240"/>
+  <rect x="158" y="262" width="196" height="132" rx="20" fill="#FFFFFF"/>
+  <g fill="#D3EFEC">
+    <rect x="172" y="286" width="24" height="92" rx="6"/>
+    <rect x="208" y="334" width="24" height="44" rx="6"/>
+    <rect x="244" y="274" width="24" height="104" rx="6"/>
+    <rect x="280" y="344" width="24" height="34" rx="6"/>
+    <rect x="316" y="304" width="24" height="74" rx="6"/>
+  </g>
+  <g fill="#2EC4B6">
+    <rect x="172" y="326" width="24" height="52" rx="6"/>
+    <rect x="208" y="326" width="24" height="52" rx="6"/>
+    <rect x="244" y="326" width="24" height="52" rx="6"/>
+    <rect x="280" y="326" width="24" height="52" rx="6"/>
+    <rect x="316" y="326" width="24" height="52" rx="6"/>
+  </g>
+  <rect x="166" y="411" width="180" height="12" rx="6" fill="#2B4170"/>
+  <rect x="166" y="411" width="108" height="12" rx="6" fill="#2EC4B6"/>
+  <circle cx="274" cy="417" r="14" fill="#FF9F1C"/>
+  <path fill="#FF9F1C" d="M437.2 48.4a39.6 39.6 0 1 0 26.4 61.6A30.8 30.8 0 1 1 437.2 48.4z"/>
+</svg>

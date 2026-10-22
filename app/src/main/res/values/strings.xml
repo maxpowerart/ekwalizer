@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ekwalizer</string>
+
+    <string name="night_mode_caps">НОЧНОЙ РЕЖИМ</string>
+    <string name="state_on">Включён</string>
+    <string name="state_off">Выключен</string>
+    <string name="desc_on">Тихие видео громче, громкие тише. Для YouTube и любых других приложений.</string>
+    <string name="desc_off">Нажмите OK, чтобы выровнять громкость всего звука приставки.</string>
+    <string name="switch_on">ВКЛ</string>
+    <string name="switch_off">ВЫКЛ</string>
+
+    <string name="chip_on">Работает · весь звук приставки</string>
+    <string name="chip_off">Выключен · звук как есть</string>
+    <string name="chip_error">Не удалось подключиться к звуку</string>
+
+    <string name="strength_caps">▾ СИЛА ВЫРАВНИВАНИЯ</string>
+    <string name="strength_hint">бледные — как скачет, бирюзовые — как станет</string>
+    <string name="preset_soft">Мягко</string>
+    <string name="preset_soft_desc">Естественный звук, лёгкое сближение</string>
+    <string name="preset_medium">Средне</string>
+    <string name="preset_medium_desc">Подходит для большинства роликов</string>
+    <string name="preset_strong">Сильно</string>
+    <string name="preset_strong_desc">Почти ровно — для засыпания</string>
+
+    <string name="settings">Настройки</string>
+    <string name="settings_desc">Движок, автозапуск, диагностика</string>
+
+    <string name="key_ok">OK</string>
+    <string name="key_lr">◀ ▶</string>
+    <string name="key_back">Назад</string>
+    <string name="hint_toggle">вкл / выкл</string>
+    <string name="hint_strength">сила</string>
+    <string name="hint_back">выйти — режим продолжит работать в фоне</string>
+    <string name="hint_select">выбрать</string>
+    <string name="hint_back_settings">назад</string>
+
+    <string name="engine_caps">▾ ДВИЖОК</string>
+    <string name="engine_dynamics">Android компрессор</string>
+    <string name="engine_dynamics_desc">Стандартный эффект Android, проверен на Mi Box</string>
+    <string name="engine_avl">Amlogic AVL</string>
+    <string name="engine_avl_desc">Встроенный выравниватель чипа · эксперимент</string>
+    <string name="control_caps">▾ УПРАВЛЕНИЕ</string>
+    <string name="restore">После перезагрузки</string>
+    <string name="restore_desc">Восстановить режим, если был включён</string>
+
+    <string name="diag_caps">▾ ДИАГНОСТИКА</string>
+    <string name="diag_ok">всё в порядке</string>
+    <string name="diag_off">режим выключен</string>
+    <string name="diag_error">ошибка</string>
+    <string name="diag_effect">Эффект</string>
+    <string name="diag_scope">Область</string>
+    <string name="diag_scope_value">Весь звук (сессия 0)</string>
+    <string name="diag_output">Выход</string>
+    <string name="diag_latency">Задержка</string>
+    <string name="diag_control">Контроль эффекта</string>
+    <string name="diag_watchdog">Сторож</string>
+    <string name="diag_watchdog_value">Проверка каждые 10 с</string>
+    <string name="diag_none">—</string>
+    <string name="diag_latency_value">≈ %1$d мс</string>
+    <string name="diag_lost">эффект перехвачен</string>
+    <string name="diag_yes">Наш</string>
+    <string name="diag_no">Перехвачен другим приложением</string>
+    <string name="passthrough_warning">Dolby/DTS passthrough не выравнивается: такой звук идёт в телевизор мимо обработки.</string>
+    <string name="version">ekwalizer %1$s · Apache-2.0</string>
+
+    <!-- Updater: same model and wording as Kwalendar/GitKwaken, adapted to Android -->
+    <string name="update_section">Обновление</string>
+    <string name="update_card_title">Обновление %1$s</string>
+    <string name="update_card_desc">Что нового и установка</string>
+    <string name="withdrawn_card_title">Версия %1$s отозвана</string>
+    <string name="withdrawn_default_reason">в этой версии серьёзная ошибка.</string>
+    <string name="update_available_caps">ДОСТУПНО ОБНОВЛЕНИЕ</string>
+    <string name="update_withdrawn_caps">ВЕРСИЯ ОТОЗВАНА</string>
+    <string name="update_name">ekwalizer %1$s</string>
+    <string name="update_meta">сейчас %1$s · вышла %2$s</string>
+    <string name="update_meta_nodate">сейчас %1$s</string>
+    <string name="update_notes_caps">▾ ЧТО НОВОГО</string>
+    <string name="update_notes_empty">Описание изменений не приложено.</string>
+    <string name="update_button">Обновить</string>
+    <string name="update_later">Позже</string>
+    <string name="update_skip">Пропустить версию</string>
+    <string name="update_downloading">Скачивание… %1$s из %2$s</string>
+    <string name="update_downloading_unknown">Скачивание… %1$s</string>
+    <string name="update_verified">Проверено. Android спросит подтверждение установки — режим и настройки сохранятся.</string>
+    <string name="update_withdrawn_rollback">Чтобы вернуться на %1$s, удалите ekwalizer и установите эту версию из релизов GitHub: Android не даёт приложению откатить само себя. Или дождитесь исправленной версии — она придёт обновлением.</string>
+    <string name="update_withdrawn_wait">Исправленная версия придёт обновлением.</string>
+    <string name="update_needs_permission">Перед первой установкой Android попросит разрешить ekwalizer устанавливать приложения: «Настройки» → включить → «Назад». ekwalizer при этом перезапустится — это нормально, установка продолжится, ночной режим не выключится.</string>
+    <string name="update_dev_build">Сборка для разработки — обновления не проверяются. Установите APK из релизов GitHub.</string>
+    <string name="update_check_failed">Не удалось проверить: %1$s</string>
+    <string name="update_signature_mismatch">Подпись обновления не совпадает с установленной копией. Удалите ekwalizer и установите APK из релиза вручную.</string>
+    <string name="update_install_failed">Не удалось установить: %1$s</string>
+    <string name="update_hash_mismatch">контрольная сумма не совпала — файл повреждён или подменён</string>
+
+    <string name="updates_caps">▾ ОБНОВЛЕНИЯ</string>
+    <string name="updates_latest">Установлена последняя версия</string>
+    <string name="updates_available">Доступна версия %1$s</string>
+    <string name="updates_checking">Проверяю…</string>
+    <string name="updates_source">Обновления берутся из релизов GitHub: maxpowerart/ekwalizer</string>
+    <string name="updates_dev">Сборка для разработки — обновления не проверяются</string>
+    <string name="updates_check">Проверить</string>
+    <string name="updates_open">Открыть</string>
+    <string name="updates_auto">Проверять автоматически</string>
+    <string name="updates_auto_desc">При запуске и каждые 6 часов. Установка — только после вашего подтверждения</string>
+    <string name="updates_skipped">Пропущенная версия: %1$s</string>
+    <string name="updates_skipped_desc">Не предлагается при фоновой проверке</string>
+    <string name="updates_unskip">Снова предлагать</string>
+</resources>
