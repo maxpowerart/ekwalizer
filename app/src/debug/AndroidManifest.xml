@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Debug only: allow a plain-http update channel served from a dev PC for testing the updater. -->
+<!-- Debug only: plain-http update channel for updater tests, and the audio test harness. -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
-    <application android:usesCleartextTraffic="true" />
+    <application android:usesCleartextTraffic="true">
+        <activity
+            android:name=".AudioTestActivity"
+            android:exported="true" />
+    </application>
 </manifest>

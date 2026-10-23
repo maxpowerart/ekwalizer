@@ -6,7 +6,7 @@ plugins {
 // same layout as KwanimeGo. Without it the release APK is built unsigned.
 // Single version source: tag vX.Y.Z must match. versionCode is derived so every release is an
 // upgrade for Android (it refuses a lower versionCode).
-def appVersion = '1.0.0'
+def appVersion = '1.0.1'
 def (vMajor, vMinor, vPatch) = appVersion.tokenize('.-')[0..2].collect { it as int }
 
 def keystorePropsFile = rootProject.file('.local/android-signing/key.properties')

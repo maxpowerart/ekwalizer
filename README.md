@@ -18,15 +18,20 @@ You fall asleep to YouTube. You set the volume for one video, the next one is tw
 - Silence and hiss below −60 dBFS are not lifted (noise gate + expander).
 - A watchdog re-attaches the effect if it is lost (audio server restart, HDMI re-plug). The mode is restored after reboot.
 
-**Latency and performance.** Processing runs in 5 ms blocks, well below lip-sync tolerance (~45 ms). The effect is one compressor band plus a limiter on 48 kHz stereo, so the CPU cost should be tiny (not yet measured during playback). Video decoding is untouched.
+**Latency and performance.** AOSP runs `DynamicsProcessing` on STFT blocks rounded up to a power of two; ekwalizer uses 2048 samples, ≈ 43 ms of added latency at 48 kHz, within broadcast lip-sync tolerance for late audio (~60 ms). Don't make the blocks shorter: 256 samples (5 ms) sounded robotic and 1024 (21 ms) crackled on speech (see below). The effect is one compressor band plus a limiter on 48 kHz stereo, so the CPU cost should be tiny (not yet measured during playback). Video decoding is untouched.
+
+An alternative engine, *Лёгкий усилитель* (`LoudnessEnhancer`, time-domain), adds no latency but levels much less.
 
 ### Strength presets
 
-| Preset | Threshold | Ratio | Attack / Release | Makeup | Ceiling |
-|---|---|---|---|---|---|
-| Soft | −24 dBFS | 3:1 | 20 / 400 ms | +6 dB | −6 dBFS |
-| Medium | −30 dBFS | 6:1 | 10 / 600 ms | +10 dB | −8 dBFS |
-| Strong | −36 dBFS | 12:1 | 5 / 900 ms | +15 dB | −10 dBFS |
+| Preset | Threshold | Ratio | Attack / Release | Makeup | Ceiling | Measured speech spread* |
+|---|---|---|---|---|---|---|
+| Off | | | | | | 20.3 dB |
+| Soft | −24 dBFS | 3:1 | 20 / 400 ms | +6 dB | −6 dBFS | 15.4 dB |
+| Medium | −30 dBFS | 6:1 | 10 / 600 ms | +10 dB | −8 dBFS | 8.8 dB |
+| Strong | −36 dBFS | 12:1 | 5 / 900 ms | +15 dB | −10 dBFS | 2.7 dB |
+
+\* Loudness difference between the same phrase played quiet (peak −24 dBFS) and loud (peak −3 dBFS), measured on the Android emulator's audio output (QEMU `wav` audio driver). With 2048-sample blocks a 1 kHz test tone stays clean in all presets (SINAD ≈ 66 dB, spurs below −88 dB) and speech shows no more high-frequency spikes than unprocessed audio. 256-sample blocks (1.0.0) measured SINAD 2 dB with spurs at −10 dB — the "robot voice"; 1024-sample blocks were clean on tones but crackled on speech.
 
 Tune them in [`Leveler.java`](app/src/main/java/com/ekwalizer/nightmode/Leveler.java).
 
@@ -86,7 +91,7 @@ UI style and brand: [`design/STYLE.md`](design/STYLE.md), logo and icons in [`de
 
 ## По-русски
 
-ekwalizer — ночной режим для Android TV: выравнивает громкость всего звука приставки, чтобы следующий ролик не заорал. Работает для любого приложения, без root. Эффект `DynamicsProcessing` (компрессор + лимитер) висит на глобальной аудиосессии, задержка около 5 мс. Сила: мягко, средне, сильно. Не работает с Dolby/DTS passthrough. Обновляется сам из релизов GitHub, установка — после вашего подтверждения.
+ekwalizer — ночной режим для Android TV: выравнивает громкость всего звука приставки, чтобы следующий ролик не заорал. Работает для любого приложения, без root. Эффект `DynamicsProcessing` (компрессор + лимитер) висит на глобальной аудиосессии, задержка около 43 мс. Сила: мягко, средне, сильно. Не работает с Dolby/DTS passthrough. Обновляется сам из релизов GitHub, установка — после вашего подтверждения.
 
 ## License
 

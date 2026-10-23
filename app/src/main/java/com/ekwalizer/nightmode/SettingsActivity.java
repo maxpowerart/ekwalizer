@@ -31,6 +31,7 @@ public class SettingsActivity extends Activity implements Updater.Listener {
     private final TextView[] diagValues = new TextView[DIAG_KEYS.length];
     private Prefs prefs;
     private LinearLayout engineDynamics;
+    private LinearLayout engineLoudness;
     private LinearLayout engineAvl;
     private LinearLayout restoreRow;
     private TextView restoreValue;
@@ -55,14 +56,17 @@ public class SettingsActivity extends Activity implements Updater.Listener {
         Header.setSection(this, R.string.settings);
         prefs = new Prefs(this);
         engineDynamics = findViewById(R.id.engine_dynamics);
+        engineLoudness = findViewById(R.id.engine_loudness);
         engineAvl = findViewById(R.id.engine_avl);
         restoreRow = findViewById(R.id.restore_row);
         restoreValue = findViewById(R.id.restore_value);
         diagStatus = findViewById(R.id.diag_status);
 
         Ui.focusableCard(engineDynamics, this::renderEngines);
+        Ui.focusableCard(engineLoudness, this::renderEngines);
         Ui.focusableCard(engineAvl, this::renderEngines);
         engineDynamics.setOnClickListener(v -> selectEngine(Prefs.ENGINE_DYNAMICS));
+        engineLoudness.setOnClickListener(v -> selectEngine(Prefs.ENGINE_LOUDNESS));
         engineAvl.setOnClickListener(v -> selectEngine(Prefs.ENGINE_AVL));
 
         Ui.focusableCard(restoreRow, this::renderRestore);
@@ -177,9 +181,10 @@ public class SettingsActivity extends Activity implements Updater.Listener {
     }
 
     private void renderEngines() {
-        boolean avl = Prefs.ENGINE_AVL.equals(prefs.engine());
-        renderOption(engineDynamics, R.id.engine_dynamics_mark, !avl);
-        renderOption(engineAvl, R.id.engine_avl_mark, avl);
+        String engine = prefs.engine();
+        renderOption(engineDynamics, R.id.engine_dynamics_mark, Prefs.ENGINE_DYNAMICS.equals(engine));
+        renderOption(engineLoudness, R.id.engine_loudness_mark, Prefs.ENGINE_LOUDNESS.equals(engine));
+        renderOption(engineAvl, R.id.engine_avl_mark, Prefs.ENGINE_AVL.equals(engine));
     }
 
     private void renderOption(LinearLayout row, int markId, boolean selected) {
@@ -226,7 +231,7 @@ public class SettingsActivity extends Activity implements Updater.Listener {
         String error = LevelerService.lastError();
         boolean control = LevelerService.hasControl();
         String effect = LevelerService.effectName();
-        boolean dynamics = Prefs.ENGINE_DYNAMICS.equals(prefs.engine());
+        String engine = prefs.engine();
         String none = getString(R.string.diag_none);
 
         int statusText;
@@ -255,11 +260,22 @@ public class SettingsActivity extends Activity implements Updater.Listener {
         diagValues[0].setText(on && effect != null ? effect : on && error != null ? error : none);
         diagValues[1].setText(R.string.diag_scope_value);
         diagValues[2].setText(describeOutputs());
-        diagValues[3].setText(dynamics
-                ? getString(R.string.diag_latency_value, Math.round(Leveler.FRAME_MS)) : none);
+        diagValues[3].setText(Prefs.ENGINE_DYNAMICS.equals(engine)
+                ? getString(R.string.diag_latency_value, Leveler.dynamicsLatencyMs(outputSampleRate()))
+                : Prefs.ENGINE_LOUDNESS.equals(engine) ? getString(R.string.diag_latency_value, 0) : none);
         diagValues[4].setText(!on || error != null ? none
                 : getString(control ? R.string.diag_yes : R.string.diag_no));
         diagValues[5].setText(on ? getString(R.string.diag_watchdog_value) : none);
+    }
+
+    private int outputSampleRate() {
+        String rate = getSystemService(AudioManager.class)
+                .getProperty(AudioManager.PROPERTY_OUTPUT_SAMPLE_RATE);
+        try {
+            return rate != null ? Integer.parseInt(rate) : 48000;
+        } catch (NumberFormatException e) {
+            return 48000;
+        }
     }
 
     /** Human names of the current external audio outputs, e.g. "HDMI". */

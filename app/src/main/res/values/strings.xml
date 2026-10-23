@@ -36,8 +36,10 @@
     <string name="hint_back_settings">назад</string>
 
     <string name="engine_caps">▾ ДВИЖОК</string>
-    <string name="engine_dynamics">Android компрессор</string>
-    <string name="engine_dynamics_desc">Стандартный эффект Android, проверен на Mi Box</string>
+    <string name="engine_dynamics">Компрессор</string>
+    <string name="engine_dynamics_desc">Выравнивает сильнее всего · задержка ≈ 43 мс</string>
+    <string name="engine_loudness">Лёгкий усилитель</string>
+    <string name="engine_loudness_desc">Без задержки, но выравнивает слабее</string>
     <string name="engine_avl">Amlogic AVL</string>
     <string name="engine_avl_desc">Встроенный выравниватель чипа · эксперимент</string>
     <string name="control_caps">▾ УПРАВЛЕНИЕ</string>

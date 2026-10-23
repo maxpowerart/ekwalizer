@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 
 /** Persistent user choices: on/off, strength preset, processing engine. */
 final class Prefs {
+    static final String ENGINE_LOUDNESS = "loudness";
     static final String ENGINE_DYNAMICS = "dynamics";
     static final String ENGINE_AVL = "avl";
 
